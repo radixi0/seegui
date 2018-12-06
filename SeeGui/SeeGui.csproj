@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Authors>Tarcis Shiosawa</Authors>
+    <Product>SeeGui - C# Gui</Product>
+    <Description>Text UI Interface build upon C#.</Description>
+  </PropertyGroup>
+
+</Project>
