@@ -67,7 +67,7 @@ namespace SeeGui
 
             // Keys Status
             CapsLock = Console.CapsLock;
-            NumLock = Console.NumberLock;            
+            NumLock = Console.NumberLock;
         }
     }
 }
