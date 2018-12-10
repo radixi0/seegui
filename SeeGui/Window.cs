@@ -24,6 +24,8 @@ namespace SeeGui
         private int InitialHeight { get; }
         private int InitialBufferWidth { get; }
         private int InitialBufferHeight { get; }
+        public List<IComponent> Controls { get; set; } = new List<IComponent>();
+        public MenuBar MenuBar { get; set; }
 
         public Window()
         {
@@ -33,57 +35,50 @@ namespace SeeGui
             InitialBufferHeight = info.BufferHeight;
             InitialBufferWidth = info.BufferWidth;
 
-            CreateTitle();
+            DrawWindow();
         }
 
         public void Refresh()
         {
-            //var current = new ScreenInfo();
+            var current = new ScreenInfo();
 
-            //if (current.Width <= InitialWidth)
-            //{
-            //    Width = current.Width;
-            //    BufferWidth = current.Width;
-
-            //    if (current.Height <= InitialHeight)
-            //    {
-            //        Height = current.Height;
-            //        BufferHeight = current.Height;
-            //    }
-            //    else
-            //    {
-            //        BufferHeight = current.Height;
-            //        Width = current.Width;
-            //        Height = current.Height;
-            //    }
-            //}
-            //else
-            //{
-            //    BufferWidth = current.Width;
-            //    Width = current.Width;
-
-            //    if (current.Height <= InitialHeight)
-            //    {
-            //        Height = current.Height;
-            //        BufferHeight = current.Height;
-            //    }
-            //    else
-            //    {
-            //        BufferHeight = current.Height;
-            //        Height = current.Height;
-            //    }
-            //}
-
-            //Width = current.Width;
-            //Height = current.Height;
-            UpdateInfo();
-            CreateTitle();
+            if (current.Width != Width || current.Height != current.Height)
+            {
+                UpdateInfo();
+                DrawWindow();
+                DrawControls();
+            }
         }
 
-        private void CreateTitle()
+        public void AddControl(IComponent control)
         {
-            Drawing.HorizontalLineFullBlock(0, 0, Width);
-            Drawing.SetCursorAndWrite(1, 0, Title, ConsoleColor.Black, ConsoleColor.Gray);
+            control.Parent = this;
+
+            if (control is MenuBar)
+                MenuBar = (MenuBar)control;
+            
+            Controls.Add(control);
+        }
+
+        private void DrawControls()
+        {
+            foreach (IComponent control in Controls)
+                control.Draw();
+        }
+
+        public void DrawWindow()
+        {
+            Drawing.Box(1, 0, Width - 1, Height - 1);
+
+            DrawTitle();
+            DrawControls();
+        }
+
+        private void DrawTitle()
+        {
+            var padTitle = $" {Title} ";
+            var startPosition = (Width / 2) - (padTitle.Length / 2);
+            Drawing.SetCursorAndWrite(startPosition, 0, padTitle, ConsoleColor.Yellow);
         }
 
         private ScreenInfo UpdateInfo()
@@ -96,6 +91,14 @@ namespace SeeGui
             Height = info.Height;
             BufferWidth = info.BufferWidth;
             BufferHeight = info.BufferHeight;
+
+            if (SeeGui.IsWindowsOS())
+            {
+                Console.BufferHeight = Console.WindowHeight;
+                Console.BufferWidth = Console.WindowWidth;
+                Console.WindowWidth = Width;
+                Console.WindowHeight = Height;
+            }
 
             return info;
         }

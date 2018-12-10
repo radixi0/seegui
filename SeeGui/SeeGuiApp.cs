@@ -24,6 +24,7 @@ namespace SeeGui
         /// </summary>
         public SeeGuiApp()
         {
+            //SeeGui.Init();
             SeeGui.SetTitle(AppName);
 
             SetCurrentWindow();
@@ -36,7 +37,9 @@ namespace SeeGui
         /// <param name="name">Set the aplication name</param>
         public SeeGuiApp(string name)
         {
+            SeeGui.Init();
             SeeGui.SetTitle(name);
+
             AppName = name;
 
             SetCurrentWindow();
@@ -52,7 +55,15 @@ namespace SeeGui
             ConsoleKeyInfo keyInfo;
             do
             {
-                keyInfo = Console.ReadKey();
+                keyInfo = Console.ReadKey(true);
+
+                if ((keyInfo.Modifiers & ConsoleModifiers.Alt) == ConsoleModifiers.Alt)
+                {
+                    if (CurrentWindow.MenuBar != null)
+                        CurrentWindow.MenuBar.OpenMenu(keyInfo.KeyChar);
+
+                    Drawing.SetCursorAndWrite(10, 10, "Key alt+" + keyInfo.Key);
+                }
 
             } while (keyInfo.Key != ConsoleKey.Escape);
         }

@@ -66,8 +66,12 @@ namespace SeeGui
             BufferHeight = Console.BufferHeight;
 
             // Keys Status
-            CapsLock = Console.CapsLock;
-            NumLock = Console.NumberLock;
+            // TODO Linux
+            if (SeeGui.IsWindowsOS())
+            {
+                CapsLock = Console.CapsLock;
+                NumLock = Console.NumberLock;
+            }            
         }
     }
 }
