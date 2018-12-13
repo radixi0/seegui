@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SeeGui
+﻿namespace SeeGui
 {
-    public enum SG_Color
+    public enum SgColor
     {
         Black = 0,              // #000000
         Red = 1,                // #C00000

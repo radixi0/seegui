@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SeeGui
 {
-    public class TextBox : IComponent
+    public class SgTextBox : ISgComponent
     {
         public Guid Uid { get; set; }
         public string Name { get; set; }
@@ -21,6 +21,6 @@ namespace SeeGui
 
         public bool IsFocusable() => true;
 
-        public TextBox() => SetUid();
+        public SgTextBox() => SetUid();
     }
 }

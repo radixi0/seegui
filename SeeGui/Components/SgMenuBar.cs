@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SeeGui
+namespace SeeGui.Components
 {
-    public class MenuBar : IComponent
+    public class SgMenuBar : ISgComponent
     {
-        public List<MenuBarItem> Items { get; set; } = new List<MenuBarItem>();
+        public List<SgMenuBarItem> Items { get; set; } = new List<SgMenuBarItem>();
         public Guid Uid { get; set; }
         public string Name { get; set; }
         public bool HasFocus { get; set; }
@@ -47,7 +47,7 @@ namespace SeeGui
             }
         }
 
-        private void DrawMenuItem(MenuBarItem menu)
+        private void DrawMenuItem(SgMenuBarItem menu)
         {
             int startLine = 2;
             int maxSize = menu.Items.Max(x => x.Text.Length); 

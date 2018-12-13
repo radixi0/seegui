@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SeeGui
 {
-    public interface IComponent
+    public interface ISgComponent
     {
         Guid Uid { get; set; }
         string Name { get; set; }

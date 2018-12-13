@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SeeGui.Components;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -24,8 +25,8 @@ namespace SeeGui
         private int InitialHeight { get; }
         private int InitialBufferWidth { get; }
         private int InitialBufferHeight { get; }
-        public List<IComponent> Controls { get; set; } = new List<IComponent>();
-        public MenuBar MenuBar { get; set; }
+        public List<ISgComponent> Controls { get; set; } = new List<ISgComponent>();
+        public SgMenuBar MenuBar { get; set; }
 
         public Window()
         {
@@ -50,19 +51,19 @@ namespace SeeGui
             }
         }
 
-        public void AddControl(IComponent control)
+        public void AddControl(ISgComponent control)
         {
             control.Parent = this;
 
-            if (control is MenuBar)
-                MenuBar = (MenuBar)control;
+            if (control is SgMenuBar)
+                MenuBar = (SgMenuBar)control;
             
             Controls.Add(control);
         }
 
         private void DrawControls()
         {
-            foreach (IComponent control in Controls)
+            foreach (ISgComponent control in Controls)
                 control.Draw();
         }
 
