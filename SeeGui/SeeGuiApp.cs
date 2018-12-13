@@ -37,15 +37,26 @@ namespace SeeGui
         /// <param name="name">Set the aplication name</param>
         public SeeGuiApp(string name)
         {
+            // Start the OS related settings
             SeeGui.Init();
+
+            // Set the App Title on terminal
             SeeGui.SetTitle(name);
 
+            // Set the App title
             AppName = name;
 
+            // TODO: Create a way of 
+            // set a main Window
             SetCurrentWindow();
+
+            // Timer to control resize of window
             Timer = new Timer(new TimerCallback(UpdateWindow), null, 500, 250);
         }
 
+        /// <summary>
+        /// Se a current window 
+        /// </summary>
         public void SetCurrentWindow() => CurrentWindow = Forms.FirstOrDefault();
 
         private void UpdateWindow(object state) => CurrentWindow.Refresh();

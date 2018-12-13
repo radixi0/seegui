@@ -54,10 +54,10 @@ namespace SeeGui
 
             foreach (var item in menu.Items)
             {
-                Drawing.SetCursorAndWrite(menu.Left, startLine++, $"│ {item.Text.PadRight(maxSize) } │");
+                Drawing.SetCursorAndWrite(menu.Left - 1, startLine++, $"│ {item.Text.PadRight(maxSize) } │");
             }
 
-            Drawing.SetCursorAndWrite(menu.Left, startLine, $"└{new string('─', maxSize + 2)}┘");
+            Drawing.SetCursorAndWrite(menu.Left - 1, startLine, $"└{new string('─', maxSize + 2)}┘");
         }
 
         public bool IsFocusable()

@@ -77,7 +77,7 @@ namespace SeeGui
         private void DrawTitle()
         {
             var padTitle = $" {Title} ";
-            var startPosition = (Width / 2) - (padTitle.Length / 2);
+            var startPosition = (Width / 2) - (padTitle.Length / 2) + 1;
             Drawing.SetCursorAndWrite(startPosition, 0, padTitle, ConsoleColor.Yellow);
         }
 
