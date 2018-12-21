@@ -1,9 +1,7 @@
-﻿using SeeGui.Components;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace SeeGui
+namespace SeeGui.Components
 {
     public enum WindowBorder
     {
@@ -13,10 +11,11 @@ namespace SeeGui
         Dashed
     }
 
-    public class Window
+    public class Form
     {
         public string Title { get; set; } = "Form 1";
         public WindowBorder Border { get; }
+        public bool RootScreen { get; }
         public int Width { get; set; }
         public int Height { get; set; }
         public int BufferWidth { get; set; }
@@ -25,10 +24,11 @@ namespace SeeGui
         private int InitialHeight { get; }
         private int InitialBufferWidth { get; }
         private int InitialBufferHeight { get; }
-        public List<ISgComponent> Controls { get; set; } = new List<ISgComponent>();
-        public SgMenuBar MenuBar { get; set; }
+        public List<ISeeGuiComponent> Controls { get; set; } = new List<ISeeGuiComponent>();
+        public MenuBar MenuBar { get; set; }
+        public bool Loaded { get; set; }
 
-        public Window()
+        public Form()
         {
             var info = UpdateInfo();
             InitialWidth = info.Width;
@@ -43,7 +43,7 @@ namespace SeeGui
         {
             var current = new ScreenInfo();
 
-            if (current.Width != Width || current.Height != current.Height)
+            if (current.Width != Width || current.Height != Height)
             {
                 UpdateInfo();
                 DrawWindow();
@@ -51,25 +51,30 @@ namespace SeeGui
             }
         }
 
-        public void AddControl(ISgComponent control)
+        public void SetLoadComplete()
+        {
+            Load(EventArgs.Empty);
+        }
+
+        public void AddControl(ISeeGuiComponent control)
         {
             control.Parent = this;
 
-            if (control is SgMenuBar)
-                MenuBar = (SgMenuBar)control;
-            
+            if (control is MenuBar)
+                MenuBar = (MenuBar)control;
+
             Controls.Add(control);
         }
 
         private void DrawControls()
         {
-            foreach (ISgComponent control in Controls)
-                control.Draw();
+            foreach (ISeeGuiComponent control in Controls)
+                control.Render();
         }
 
         public void DrawWindow()
         {
-            Drawing.Box(1, 0, Width - 1, Height - 1);
+            Draw.Box(1, 0, Width - 1, Height - 1);
 
             DrawTitle();
             DrawControls();
@@ -79,7 +84,7 @@ namespace SeeGui
         {
             var padTitle = $" {Title} ";
             var startPosition = (Width / 2) - (padTitle.Length / 2) + 1;
-            Drawing.SetCursorAndWrite(startPosition, 0, padTitle, ConsoleColor.Yellow);
+            Draw.SetCursorAndWrite(startPosition, 0, padTitle, ConsoleColor.Yellow);
         }
 
         private ScreenInfo UpdateInfo()
@@ -103,5 +108,9 @@ namespace SeeGui
 
             return info;
         }
+
+        protected virtual void Load(EventArgs e) => OnLoad?.Invoke(this, e);
+
+        public event EventHandler OnLoad;
     }
 }

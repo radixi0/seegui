@@ -5,15 +5,11 @@ namespace SeeGui
 {
     public static class SeeGuiWindows
     {
-        private const int STD_INPUT_HANDLE = -10;
-
         private const int STD_OUTPUT_HANDLE = -11;
 
         private const uint ENABLE_VIRTUAL_TERMINAL_PROCESSING = 0x0004;
 
         private const uint DISABLE_NEWLINE_AUTO_RETURN = 0x0008;
-
-        private const uint ENABLE_VIRTUAL_TERMINAL_INPUT = 0x0200;
 
         [DllImport("kernel32.dll")]
         private static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
@@ -30,7 +26,7 @@ namespace SeeGui
         public static void SetConsoleMode()
         {
             var iStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-            
+
             if (!GetConsoleMode(iStdOut, out uint outConsoleMode))
             {
                 Console.WriteLine("failed to get output console mode");
@@ -39,7 +35,7 @@ namespace SeeGui
             }
 
             outConsoleMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING | DISABLE_NEWLINE_AUTO_RETURN;
-            
+
             if (!SetConsoleMode(iStdOut, outConsoleMode))
             {
                 Console.WriteLine($"failed to set output console mode, error code: {GetLastError()}");

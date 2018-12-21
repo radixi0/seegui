@@ -14,15 +14,17 @@ namespace SeeGui
         }
 
         public static bool IsWindowsOS() => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+
         public static bool IsLinuxOS() => RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+
         public static bool IsMacOS() => RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 
         /// <summary>
-        /// Set the window title 
+        /// Set the window title
         /// </summary>
         public static void SetTitle(string title)
         {
             Console.Title = title;
         }
-    }
+    };
 }

@@ -1,6 +1,6 @@
 ﻿namespace SeeGui.Components
 {
-    class SgButton
+    class ListBox
     {
     }
 }

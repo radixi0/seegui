@@ -1,6 +1,6 @@
 ﻿namespace SeeGui.Components
 {
-    public class SgMenuItem
+    public class MenuItem
     {
         public string Text { get; set; }
         public string Description { get; set; }

@@ -5,7 +5,7 @@ namespace SeeGui
     /// <summary>
     /// Basic drawing routines
     /// </summary>
-    public static class Drawing
+    public static class Draw
     {
         public static void SetCursorAndWrite(int xPos, int yPos, string text)
         {
@@ -13,7 +13,7 @@ namespace SeeGui
             Console.Write(text);
         }
 
-        public static void SetCursorAndWrite(int xPos, int yPos, string text, 
+        public static void SetCursorAndWrite(int xPos, int yPos, string text,
             ConsoleColor Foreground = ConsoleColor.Gray)
         {
             Console.ForegroundColor = Foreground;
@@ -40,6 +40,7 @@ namespace SeeGui
         }
 
         #region Private
+
         private static string BoxUpperLine(int size) => $"┌{new string('─', size)}┐";
 
         private static string BoxHorizontalLine(int size) => $"│{new string(' ', size)}│";
@@ -51,7 +52,8 @@ namespace SeeGui
         private static string DoubleBoxHorizontalLine(int size) => $"║{new string(' ', size)}║";
 
         private static string DoubleBoxBottomLine(int size) => $"╚{new string('═', size)}╝";
-        #endregion
+
+        #endregion Private
 
         public static ConsoleColor GetBackGroundColor(int xPos, int yPos)
         {

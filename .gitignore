@@ -7,3 +7,4 @@
 /SeeGui/obj
 /.vs/SeeGui/DesignTimeBuild
 /SeeGui/bin/Release/netcoreapp2.1
+/SeeGui/bin/win10-x64/netcoreapp2.1
